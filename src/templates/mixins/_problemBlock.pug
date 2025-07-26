@@ -1,0 +1,133 @@
+//- Include mixins that _problemBlock will use
+include ./_questionItem.pug
+include ./_readingPassage.pug
+include ./_dataTable.pug
+
+mixin problemBlock(blockData, blockIndex, counterState)
+  //- blockData: The current block object from exam.contentFlow.
+  //- blockIndex: The index of this block in the contentFlow array.
+  //- counterState: An object like { current: 0 } to manage the global question number.
+
+  section.problem-block(id=blockData.id || `block-${blockIndex}`)
+    if blockData.title
+      h2.problem-block-title!= blockData.title
+    if blockData.instruction
+      p.problem-block-instruction(class={ 'star-problem-instruction': blockData.type === 'starProblem' })!= blockData.instruction
+
+    //- --- Handle different block types ---
+
+    //- Standard Questions (Type: 'standard')
+    if blockData.type === 'standard'
+      if blockData.questions && blockData.questions.length
+        each question in blockData.questions
+          - let displayNum
+          if question.questionNumberOverride
+            - displayNum = question.questionNumberOverride
+            - counterState.current = parseInt(question.questionNumberOverride) //- Update global counter
+          else
+            - counterState.current++
+            - displayNum = counterState.current
+          +questionItem(question, displayNum, 'standard')
+
+    //- Star Problem (Type: 'starProblem')
+    else if blockData.type === 'starProblem'
+      if blockData.example
+        .star-example-box
+          if blockData.example.sentenceFormat
+            - const exampleSentence = blockData.example.sentenceFormat.replace(/%%/g, '<span class="blank-line"></span>')
+            p.star-example-sentence!= exampleSentence
+          if blockData.example.exampleOptions && blockData.example.exampleOptions.length
+            .star-example-options
+              each optText, optIndex in blockData.example.exampleOptions
+                span!= `${optIndex + 1} ${optText}`
+
+      if blockData.questions && blockData.questions.length
+        each question in blockData.questions
+          - let displayNum
+          if question.questionNumberOverride
+            - displayNum = question.questionNumberOverride
+            - counterState.current = parseInt(question.questionNumberOverride)
+          else
+            - counterState.current++
+            - displayNum = counterState.current
+          +questionItem(question, displayNum, 'starProblem')
+
+
+    //- Passage with Fill-in-the-Blanks (Type: 'passageFill')
+    else if blockData.type === 'passageFill'
+      // ... (no change here) ...
+      if blockData.passage
+        +readingPassage(blockData.passage)
+
+      if blockData.blankOptions && blockData.blankOptions.length
+        each blankOptSet in blockData.blankOptions
+          - let displayNum = blankOptSet.blankMarker
+          if (displayNum && !isNaN(parseInt(displayNum)))
+            - counterState.current = parseInt(displayNum)
+          else
+            - counterState.current++
+            - displayNum = displayNum || counterState.current
+
+          .question-item.passage-fill-options
+            if displayNum
+              span.question-number-box= displayNum
+            .question-content
+              if blankOptSet.choices && blankOptSet.choices.length
+                +options(blankOptSet.choices)
+
+    //- Reading Comprehension (Type: 'readingComprehension')
+    else if blockData.type === 'readingComprehension'
+      if blockData.passages && blockData.passages.length
+        each passageData in blockData.passages
+          +readingPassage(passageData)
+
+          if passageData.questions && passageData.questions.length
+            each question in passageData.questions
+              - let displayNum
+              if question.questionNumberOverride
+                - displayNum = question.questionNumberOverride
+                - counterState.current = parseInt(question.questionNumberOverride)
+              else
+                - counterState.current++
+                - displayNum = counterState.current
+              +questionItem(question, displayNum, 'readingComprehension')
+
+
+    //- Data Table Driven Questions (Type: 'dataTableDriven')
+    else if blockData.type === 'dataTableDriven'
+      //- 1. Render a reference description if it exists (e.g., "Refer to the document on the right")
+      if blockData.dataTableReference && blockData.dataTableReference.description
+        p.data-table-description!= blockData.dataTableReference.description
+
+      //- 2. Render the actual table data if provided in blockData.table
+      //- This was the line moved up.
+      if blockData.table
+        +dataTable(blockData.table)
+
+      //- 3. Render questions related to the (assumed or rendered) data table
+      if blockData.questions && blockData.questions.length
+        each question in blockData.questions
+          - let displayNum
+          if question.questionNumberOverride
+            - displayNum = question.questionNumberOverride
+            - counterState.current = parseInt(question.questionNumberOverride)
+          else
+            - counterState.current++
+            - displayNum = counterState.current
+          +questionItem(question, displayNum, 'dataTableDriven')
+
+    //- Fallback for unknown block type
+    else if blockData.type
+      p
+        strong Unknown block type:
+        span= blockData.type
+
+    //- General table rendering (if table is a top-level property of blockData and not part of a specific type's structure)
+    //- This `if blockData.table` was a bit ambiguous before.
+    //- If a block type *other than* 'dataTableDriven' can also have a general table,
+    //- this logic might need to be more specific or moved.
+    //- For now, 'dataTableDriven' handles its own table. If other types need a general table,
+    //- you'd add it to their respective `if/else if` blocks.
+    //- If a block is NOT 'dataTableDriven' but has a 'table' property, it would render here.
+    if blockData.table && blockData.type !== 'dataTableDriven'
+        +dataTable(blockData.table)

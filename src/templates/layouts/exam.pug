@@ -1,0 +1,20 @@
+extends default.pug
+include ../mixins/_problemBlock.pug
+
+block page_meta
+  - const pageTitle = (exam && exam.meta && exam.meta.title) ? exam.meta.title : "Exam Paper"
+  title= pageTitle
+  style.
+    @page {
+      @top-right {
+        content: "#{pageTitle}"
+      }
+    }
+
+block content
+  if exam && exam.contentFlow && exam.contentFlow.length
+    - const counterState = { current: 0 }
+    each blockData, blockIndex in exam.contentFlow
+      +problemBlock(blockData, blockIndex, counterState)
+  else
+    p No content found in exam data.

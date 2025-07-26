@@ -1,0 +1,67 @@
+mixin dataTable(tableData)
+  //- tableData: { caption: string, sections: [{ title, description, headers, rows, footerNotes }] }
+  if tableData
+    .data-table-container
+      //- Main table caption if provided at the top level
+      if tableData.caption
+        h3.data-table-main-caption!= tableData.caption
+
+      if tableData.sections && tableData.sections.length
+        each section, index in tableData.sections
+          .data-table-section(id=`table-section-${index}`)
+            if section.title
+              h4.data-table-section-title!= section.title
+            if section.description
+              //- Handle multiline descriptions by splitting and creating <p> tags
+              - const descLines = (section.description || '').split('\\n')
+              each line in descLines
+                p.data-table-section-description!= line
+
+            if section.headers && section.rows
+              table.data-table.inner-table
+                if section.headers.length
+                  thead
+                    tr
+                      each header in section.headers
+                        th!= header
+                if section.rows.length
+                  tbody
+                    each row in section.rows
+                      tr
+                        each cell in row
+                          if typeof cell === 'object' && cell.text != null
+                            td(class=cell.class || null, colspan=cell.colspan || null, rowspan=cell.rowspan || null)!= cell.text
+                          else
+                            td!= cell
+            else if !section.headers && !section.rows && section.description && index > 0 && tableData.sections[index-1].headers
+              pass
+
+
+            if section.footerNotes && section.footerNotes.length
+              .data-table-section-footer-notes
+                each note in section.footerNotes
+                  p.table-note!= note
+          hr.data-table-section-divider
+
+      //- Legacy support for a single flat table structure (if needed)
+      else if tableData.headers && tableData.rows
+        table.data-table
+          if tableData.caption
+            caption!= tableData.caption
+          if tableData.headers.length
+            thead
+              tr
+                each header in tableData.headers
+                  th!= header
+          if tableData.rows.length
+            tbody
+              each row in tableData.rows
+                tr
+                  each cell in row
+                    if typeof cell === 'object' && cell.text != null
+                      td(class=cell.class || null, colspan=cell.colspan || null, rowspan=cell.rowspan || null)!= cell.text
+                    else
+                      td!= cell
+        if tableData.notes && tableData.notes.length
+          each note in tableData.notes
+            p.table-note!= note

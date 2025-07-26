@@ -1,0 +1,36 @@
+// Fonts
+$font-family-serif: "MS Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+$font-family-sans: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+
+// Colors
+$color-text: #000;
+$color-border: #000;
+$color-border-light: #ccc;
+$color-table-header-bg: #e0e0e0;
+$color-passage-bg: #fdfdfd;
+$color-note-text: #333;
+
+// Typography
+$base-font-size: 10pt;
+$line-height-base: 1.6;
+$line-height-tight: 1.2;
+$line-height-passage: 1.7;
+$merged-underline-length: 6em; // Define the fixed length for merged underscores
+$merged-underline-star-length: 6em; // Can be same or different for starred version
+$star-glyph-font-size: 1.2em;
+$star-glyph-color: $color-text; // Or a specific color for the star
+
+// Spacing (can be more granular)
+$spacing-unit: 1em;
+$spacing-question-item-bottom: 1.2em;
+$spacing-option-right: 2em;
+$spacing-option-bottom: 0.3em;
+
+// Page Margins (approximate)
+$page-margin-top: 2cm;
+$page-margin-right: 1.5cm;
+$page-margin-bottom: 1.5cm;
+$page-margin-left: 2cm;
+
+$page-width-A4: 210mm;
+$page-height-A4: 297mm;

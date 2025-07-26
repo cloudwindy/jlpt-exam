@@ -1,0 +1,34 @@
+@page {
+  size: A4; // or $page-width-A4 $page-height-A4;
+  margin: $page-margin-top $page-margin-right $page-margin-bottom $page-margin-left;
+
+  @bottom-center {
+    content: counter(page);
+    font-family: $font-family-sans;
+    font-size: 0.9 * $base-font-size;
+    vertical-align: top;
+    padding-top: 0.5cm;
+  }
+
+  @top-right {
+    // Use the string captured by Paged.js
+    font-family: $font-family-serif; // As per your original styling for this header
+    font-size: 1.1 * $base-font-size; // As per your original styling
+    vertical-align: bottom;
+    padding-bottom: 0.5cm; // Adjust as needed
+    // You might want to add other properties like color, text-align if needed
+    // text-align: right; // If it wasn't already aligning right due to @top-right
+  }
+}
+
+// Control page breaks
+.problem-block-title,
+.question-item,
+.reading-passage-container {
+  break-inside: avoid; // Paged.js should respect this
+}
+
+.new-major-section-start-element {
+  // An element you'd add in Pug
+  break-before: page; // Or 'recto' or 'verso'
+}

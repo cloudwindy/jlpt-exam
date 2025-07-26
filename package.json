@@ -1,0 +1,39 @@
+{
+  "name": "jlpt-exam",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "concurrently \"node src/scripts/watch.js 2022-02-N4\" \"live-server dist/NameOfExamToWatch --wait=1000\"",
+    "build": "node cli.js build",
+    "build:exam": "node src/scripts/build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "fs-extra": "^11.3.0",
+    "js-yaml": "^4.1.0",
+    "pug": "^3.0.3",
+    "sass": "^1.89.1"
+  },
+  "bin": {
+    "exam-gen": "./cli.js"
+  },
+  "devDependencies": {
+    "axios": "^1.9.0",
+    "chokidar": "^4.0.3",
+    "concurrently": "^9.1.2",
+    "live-server": "^1.2.2"
+  },
+  "assetsConfig": {
+    "pagedjs": {
+      "baseUrl": "https://unpkg.com/pagedjs/dist/",
+      "destinationDir": "src/assets/pagedjs",
+      "files": [
+        "paged.polyfill.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+mixin options(choices, layoutType = 'default')
+  //- choices: Can be an array of strings OR an array of {number, text} objects for backward compatibility/override.
+  //- layoutType: e.g., 'starLayout' for specific styling.
+
+  .options-container(class={ 'star-problem-options-container': layoutType === 'starLayout'})
+    if choices && choices.length
+      each choiceItem, index in choices
+        .option-item
+          if typeof choiceItem === 'object' && choiceItem.number != null && choiceItem.text != null
+            //- Handle old format or explicit numbering
+            span.option-number= choiceItem.number
+            span.option-text!= choiceItem.text
+          else if typeof choiceItem === 'string'
+            //- Handle new simplified format (array of strings)
+            span.option-number= index + 1
+            span.option-text!= choiceItem
+          else
+            //- Fallback or error for unexpected format
+            span.option-text Error: Invalid option format

@@ -1,0 +1,40 @@
+//- Include other mixins this one might use
+include ./_options.pug
+include ./_readingPassage.pug
+
+mixin questionItem(questionData, displayQuestionNumber, blockType = 'standard')
+  //- questionData: The question object from JSON.
+  //- displayQuestionNumber: The number to display for this question (could be auto-generated or from override).
+  //- blockType: The type of the parent block (e.g., 'standard', 'starProblem').
+
+  .question-item(class={ 'star-problem-item': blockType === 'starProblem' })
+    if displayQuestionNumber
+      span.question-number-box= displayQuestionNumber
+
+    .question-content
+      if questionData.text
+        //- For star problems, the text is the sentenceFormat which needs processing
+        if blockType === 'starProblem' && questionData.sentenceFormat
+          - const formattedSentence = questionData.sentenceFormat.replace(/%%/g, '<span class="merged-underline"></span>')
+          p.question-text.star-problem-sentence-container!= formattedSentence
+        else
+          p.question-text!= questionData.text
+      else if blockType === 'starProblem' && questionData.sentenceFormat
+        - const formattedSentence = questionData.sentenceFormat.replace(/%%/g, '<span class="merged-underline"></span>')
+        p.question-text.star-problem-sentence-container!= formattedSentence
+
+
+      //- If a question itself contains a small passage (less common, but possible)
+      if questionData.passage
+        +readingPassage(questionData.passage)
+
+      //- Render options
+      if questionData.options && questionData.options.length
+        +options(questionData.options, (blockType === 'starProblem' ? 'starLayout' : 'default'))
+
+      //- If question has sub-questions (recursive) - rare for N2
+      if questionData.subQuestions && questionData.subQuestions.length
+        each subQ, subIndex in questionData.subQuestions
+          //- Sub-questions might need their own numbering logic (e.g., 1.1, 1.2 or a, b, c)
+          //- For simplicity, passing displayQuestionNumber + '.' + (subIndex + 1)
+          +questionItem(subQ, `${displayQuestionNumber}.${subIndex + 1}`, blockType)

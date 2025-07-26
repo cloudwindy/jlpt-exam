@@ -1,0 +1,48 @@
+.page-container {
+  display: flex; // Use flexbox to push footer to the bottom
+  flex-direction: column;
+  min-height: 95vh; // Approximate height of a printable page content area
+  // This helps visualize in browser, but print engine handles actual page breaks.
+  // Adjust this value based on your margins and content.
+  // Or, if you know your content will always fill a page, you might not need min-height.
+  position: relative; // Needed if sidebar is absolutely positioned relative to this
+}
+
+.page-content-wrapper {
+  flex-grow: 1; // This makes the content area take up available space, pushing footer down
+  // Add any padding for the main content area if needed
+  // padding-bottom: 2em; // Example: space before the footer
+}
+
+.page-footer-container {
+  width: 100%;
+  text-align: center;
+  padding: 0.5em 0; // Some spacing around the page number
+  margin-top: auto; // This with flex-grow on content pushes it to the bottom
+  font-size: 0.9 * $base-font-size; // 9pt
+  font-family: $font-family-sans;
+  // border-top: 1px solid $color-border-light; // Optional separator
+}
+
+// Your existing .page-number class might just need to be targeted correctly
+// .page-footer-container .page-number { ... any specific styling for the number itself ... }
+
+.page-section-header {
+  font-size: 1.1 * $base-font-size; // 11pt
+  text-align: right;
+  margin-bottom: 1.5em; // Using em from your previous examples
+  font-weight: normal;
+}
+
+.page-number {
+  position: absolute; // Also position absolutely within its page-container
+  bottom: 0; // Bottom of the page-container
+  // Add small offset from bottom if desired: bottom: 0.5cm;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.9 * $base-font-size; // 9pt
+  font-family: $font-family-sans; // Assuming $font-family-sans is defined
+  z-index: 10; // Ensure it's above other content if overlap occurs
+  // padding-bottom: $page-margin-bottom - 1.5cm; // If you want to simulate bottom margin within the page-number footer
+}

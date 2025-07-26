@@ -1,0 +1,16 @@
+mixin readingPassage(passageData)
+  //- passageData: { passageNumber (optional), paragraphs: string[], notes: string[] (optional) }
+  .reading-passage-container(id=passageData.id || null)
+    if passageData.passageNumber
+      h3.passage-title!= passageData.passageNumber
+    else if passageData.title
+      h3.passage-title!= passageData.title
+
+    if passageData.paragraphs && passageData.paragraphs.length
+      each para in passageData.paragraphs
+        p!= para
+
+    if passageData.notes && passageData.notes.length
+      .passage-notes-container
+        each note in passageData.notes
+          p.passage-note!= note

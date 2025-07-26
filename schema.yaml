@@ -1,0 +1,126 @@
+# Top-Level Exam Object
+# =======================
+
+# meta: (Object) General metadata about the exam.
+meta:
+  title: String (Required) - The main title of the exam. e.g. "JLPT日本語能力試験 模試 N2"
+  level: String (Optional) - e.g., "N2", "N2+"
+  date: String (Optional) - e.g., "2024-03-15"
+
+# contentFlow: (Array of Block Objects - Required)
+# An array representing the sequence of problem blocks in the exam.
+contentFlow:
+  # --- Block Object (Repeated for each block) ---
+  # Every block has a incremental global counter for its number which is invisible to this document.
+  # However, you need to infer correctly for fill questions.
+  - type: String (Required) - Determines how the block is rendered.
+      # Possible values: "standard", "starProblem", "passageFill",
+      #                  "readingComprehension", "dataTableDriven"
+    title: String (Optional) - The main title/heading for this problem block (HTML allowed).
+    instruction: String (Optional) - Instructions for this block (HTML allowed).
+    id: String (Optional) - A unique ID for the section element (e.g., for linking).
+
+    # --- Fields specific to block `type` ---
+
+    # For `type: "standard"`
+    questions: # (Array of StandardQuestion Objects)
+      - text: String (Required) - The question text (HTML allowed).
+        options: # (Array of Strings - Required) - The choice texts.
+          - String # Option 1
+          - String # Option 2
+          # ... up to 4 typically
+
+    # For `type: "starProblem"`
+    questions: # (Array of StarQuestion Objects)
+      - sentenceFormat: String (Required) - The question sentence. Use "%%" for normal blanks.
+                      # Include the full <span class="starred-underline">★</span> for the starred blank.
+        options: # (Array of Strings - Required) - The choice texts.
+          - String
+
+    # For `type: "passageFill"`
+    passage: # (Object - Required) - The passage containing blanks.
+      # passageNumber: String (Optional) - e.g., "(A)" if the block has multiple such passages.
+      # title: String (Optional) - A title for this specific passage.
+      paragraphs: # (Array of Strings - Required) - Each string is a paragraph (HTML allowed).
+                  # Embed blank markers like <span class="fill-blank-marker">(1)</span> within these strings.
+        - String # Paragraph 1
+        - String # Paragraph 2
+      notes: # (Array of Strings, Optional) - Footnotes for the passage.
+        - String # Note 1
+    blankOptions: # (Array of BlankOptionSet Objects - Required) - Options for each blank in the passage.
+      -  choices: # (Array of Strings - Required) - Options for this specific blank.
+          - String
+
+    # For `type: "readingComprehension"`
+    passages: # (Array of ReadingPassage Objects - Required)
+      - passageNumber: String (Optional) - Identifier like "(1)", "(A)" for this passage.
+        # title: String (Optional) - A title for this specific passage, if `passageNumber` isn't used.
+        paragraphs: # (Array of Strings - Required) - Paragraphs of this passage (HTML allowed).
+          - String
+        notes: # (Array of Strings, Optional) - Footnotes for this passage.
+          - String
+        questions: # (Array of StandardQuestion Objects - Required) - Questions pertaining to THIS passage.
+          - text: String (Required) - Question text (HTML allowed).
+            options: # (Array of Strings - Required)
+              - String
+
+    # For `type: "dataTableDriven"`
+    # This block type is for questions that refer to a table.
+    # The table itself is rendered if `table` data is provided.
+    dataTableReference: # (Object, Optional) - Descriptive text if the table is not rendered from this YAML.
+      description: String (Required) - e.g., "Refer to the chart on page X."
+    table: # (Object, Optional) - If the table data is to be rendered from this YAML.
+           # See "Table Object" definition below.
+      # ... (Table Object structure)
+
+    questions:
+      # (Array of StandardQuestion Objects - Required) - Questions about the table.
+      - text: String (Required) - Question text (HTML allowed).
+        options: # (Array of Strings - Required)
+          - String
+
+# --- Sub-Object Definitions (used within Block Objects) ---
+
+# StandardQuestion Object (used in `type: "standard"`, `type: "readingComprehension"`, `type: "dataTableDriven"`)
+# - text: String (Required)
+# - options: Array of Strings (Required)
+
+# StarQuestion Object (used in `type: "starProblem"`)
+# - sentenceFormat: String (Required)
+# - options: Array of Strings (Required)
+
+# ReadingPassage Object (used in `type: "readingComprehension"`)
+# - passageNumber: String (Optional)
+# - title: String (Optional)
+# - paragraphs: Array of Strings (Required)
+# - notes: Array of Strings (Optional)
+# - questions: Array of StandardQuestion Objects (Required)
+
+# BlankOptionSet Object (used in `type: "passageFill"`)
+# - choices: Array of Strings (Required)
+
+# Table Object (used in `blockData.table` for `type: "dataTableDriven"` or other types)
+# - caption: String (Optional) - Overall caption for the entire table structure.
+# - sections: # (Array of TableSection Objects - Required if using sectioned table)
+#   - title: String (Optional) - Title for this section of the table.
+#     description: String (Optional) - Multi-line text (use `|`) describing this section.
+#                                     # `\n` will be converted to paragraph breaks in Pug.
+#     headers: # (Array of Strings, Optional) - Column headers for this section's table.
+#       - String
+#     rows: # (Array of Array of Strings/CellObjects, Optional) - Rows for this section's table.
+#       - # Row 1
+#         - String # Cell 1
+#         - String # Cell 2
+#         # Or for complex cells:
+#         # - { text: "Content", class: "custom-class", colspan: 2 }
+#     footerNotes: # (Array of Strings, Optional) - Notes appearing after this section's table.
+#       - String
+# - headers: (Array of Strings, Optional) - For a single, flat table (if `sections` is not used).
+# - rows: (Array of Array of Strings/CellObjects, Optional) - For a single, flat table.
+# - notes: (Array of Strings, Optional) - For a single, flat table.
+
+# CellObject (for complex table cells within `rows`)
+# - text: String (Required)
+# - class: String (Optional) - CSS class for the <td>.
+# - colspan: Number (Optional)
+# - rowspan: Number (Optional)

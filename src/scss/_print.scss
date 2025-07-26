@@ -1,0 +1,33 @@
+@media print {
+  body {
+    font-size: $base-font-size !important; // Ensure consistent font size
+    color: $color-text !important;
+    background-color: #fff !important;
+  }
+
+  .no-print {
+    // Utility class to hide elements from print
+    display: none !important;
+  }
+
+  // Prevent the last page from having a break after it
+  body>.page-container:last-child {
+    // Assumes .page-container is direct child of body
+    page-break-after: auto; // Or 'avoid'
+  }
+
+  // Try to avoid breaking within these common elements if possible
+  .question-item {
+    page-break-inside: avoid;
+  }
+
+  body>.page-container:last-child {
+    page-break-after: auto;
+  }
+
+  .page-footer-container {
+    // Ensure it's not fixed or absolute for print flow unless specifically needed
+    // and you're managing its position carefully relative to page breaks.
+    // The flexbox approach above should work well.
+  }
+}

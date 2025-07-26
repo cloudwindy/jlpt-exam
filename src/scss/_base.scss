@@ -1,0 +1,37 @@
+body {
+  font-family: $font-family-serif;
+  line-height: $line-height-base;
+  color: $color-text;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: $base-font-size;
+}
+
+// Basic resets and global settings
+h1,
+h2,
+h3,
+p,
+div,
+span,
+li,
+td,
+th,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  orphans: 3;
+  widows: 3;
+}
+
+// Common underline style
+.underline {
+  border-bottom: 1.5px solid $color-border;
+  padding-bottom: 1px;
+  text-decoration: none; // Override browser default if any
+}
+
+.bold {
+  font-weight: bold;
+}

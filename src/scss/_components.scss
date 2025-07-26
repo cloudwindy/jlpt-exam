@@ -1,0 +1,337 @@
+// Problem Blocks
+.problem-block {
+  margin-bottom: 2 * $spacing-unit;
+
+  .problem-block-title {
+    font-size: 1.2 * $base-font-size; // 12pt
+    font-weight: bold;
+    margin-bottom: 0.5 * $spacing-unit;
+    padding-bottom: 0.2em;
+  }
+
+  .problem-block-instruction {
+    font-size: $base-font-size;
+    margin-bottom: 1.5 * $spacing-unit;
+    line-height: 1.5;
+  }
+}
+
+// Question Items
+.question-item {
+  margin-bottom: $spacing-question-item-bottom;
+  display: flex;
+  align-items: flex-start;
+  page-break-inside: avoid;
+
+  .question-number-box {
+    display: inline-block;
+    border: 1px solid $color-border;
+    margin-right: 0.8 * $spacing-unit;
+    margin-top: 0.1 * $spacing-unit;
+    line-height: $line-height-tight;
+    min-width: 1.7em;
+    text-align: center;
+    font-size: $base-font-size;
+  }
+
+  .question-content {
+    flex-grow: 1;
+
+    .question-text {
+      display: block;
+      margin-bottom: 0.5 * $spacing-unit;
+      line-height: 1.7;
+
+      .underline {
+        // Overrides global .underline if needed, or just inherits
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        border-bottom: none; // Remove the border-bottom if using text-decoration
+      }
+
+      // For Problem 3 & 4 style blanks
+      .blank {
+        display: inline-block;
+        width: 3em;
+        border-bottom: 1px solid $color-border;
+        margin: 0 0.2em;
+        text-align: center;
+        font-family: $font-family-sans;
+      }
+    }
+  }
+}
+
+// Options Container
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-left: 2.7em; // Indent options to align with question text
+
+  .option-item {
+    display: flex;
+    align-items: baseline;
+    margin-right: $spacing-option-right;
+    margin-bottom: $spacing-option-bottom;
+    min-width: 6em;
+
+    .option-number {
+      margin-right: 0.5em;
+      font-family: $font-family-sans;
+    }
+
+    .option-text {
+      line-height: $line-height-base;
+    }
+  }
+}
+
+// Star Problems (Problem 6 / Pug.js "問題8")
+.star-problem-instruction {
+  // Specific instruction for star problems
+  font-size: $base-font-size;
+  margin-bottom: 0.5 * $spacing-unit;
+}
+
+.star-example-box {
+  // The example formatting
+  border: 1px solid $color-border-light;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+  font-size: 0.9 * $base-font-size;
+
+  .star-example-sentence {
+    margin-bottom: 0.5em;
+    line-height: 1.8; // Match actual problem
+  }
+
+  .star-example-options {
+    display: flex;
+    justify-content: space-around; // Or specific spacing
+  }
+}
+
+.star-problem-sentence-container {
+  // The actual question sentence
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+  line-height: 1.8;
+
+  .star-placeholder {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  // If you replace .blank-line with .starred-underline directly for the starred one:
+  .starred-underline {
+    // It will inherit the general .starred-underline styles above.
+    // You can add specific overrides here if needed for this context.
+    // For example, if the length needs to be different:
+    // width: 8em;
+  }
+
+  // If you keep .blank-line for non-starred ones and use .starred-underline for the star
+  .blank-line {
+    display: inline-block;
+    width: $merged-underline-length; // Or a specific width for these blanks
+    border-bottom: 1px solid $color-border-light;
+    margin: 0 0.2em;
+    vertical-align: bottom;
+  }
+}
+
+.star-problem-options-container {
+  // Options for star problem
+  margin-left: 1.5em; // Specific indent
+  // Inherits .options-container and .option-item styles
+}
+
+
+// Reading Comprehension Passages
+.reading-passage-container {
+  margin-bottom: 1.5 * $spacing-unit;
+  border: 1px solid $color-border-light;
+  padding: 1em;
+  background-color: $color-passage-bg;
+  line-height: $line-height-passage;
+
+  .passage-title {
+    // For (1), (2) etc. before a passage
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  p {
+    margin-bottom: 0.8em;
+    text-align: justify;
+    text-indent: 2em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .passage-note {
+    // For (注) definitions
+    text-indent: 0;
+    font-size: 0.9 * $base-font-size;
+    margin-top: 0.5em;
+    margin-left: 1em;
+    color: $color-note-text;
+  }
+
+  .fill-blank-marker {
+    // For ( 48 ) style markers in passage
+    font-family: $font-family-sans;
+    font-weight: bold;
+  }
+}
+
+// Options for passage fill-in-the-blanks (Problem 9)
+.passage-fill-options {
+  .options-container {
+    margin-left: 0; // No extra indent for these
+  }
+}
+
+// In _components.scss or a new _tables.scss
+
+.data-table-container {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+
+  .data-table-main-caption {
+    font-size: 1.2em; // Larger than section titles
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+}
+
+.data-table-section {
+  margin-bottom: 1.5em;
+
+  .data-table-section-title {
+    font-size: 1.1em; // Slightly smaller than main problem title
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    // border-bottom: 1px solid $color-border-light; // Optional
+    // padding-bottom: 0.2em;
+  }
+
+  .data-table-section-description {
+    font-size: 0.95em; // Or $base-font-size
+    margin-bottom: 0.8em;
+    line-height: $line-height-base; // Or a specific table description line height
+    white-space: pre-line; // To respect \n from JSON for paragraphs
+  }
+
+  .inner-table {
+    // Specific styling for tables within sections if needed
+    margin-top: 0.5em;
+    margin-bottom: 0.8em;
+    // Inherits .data-table styles from _components.scss
+  }
+
+  .data-table-section-footer-notes {
+    margin-top: 0.5em;
+    font-size: 0.85 * $base-font-size; // Small notes
+
+    .table-note {
+      // If you reuse .table-note class for individual notes
+      margin-bottom: 0.3em;
+    }
+  }
+}
+
+.data-table-section-divider {
+  border: none;
+  border-top: 1px dashed $color-border-light;
+  margin: 1.5em 0;
+}
+
+// General .data-table styles (you likely have these already)
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9 * $base-font-size; // Default for tables
+  // border: 1px solid $color-border; // If you want an outer border for each inner table
+
+  th,
+  td {
+    border: 1px solid $color-border;
+    padding: 0.4em 0.6em;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: $color-table-header-bg;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  td {
+    &.center-align {
+      text-align: center;
+    }
+
+    &.right-align {
+      text-align: right;
+    }
+  }
+}
+
+.table-note {
+  // General styling for notes, used by section footers too
+  font-size: 0.85 * $base-font-size;
+  margin-top: 0.2em;
+}
+
+// Variables for these special elements (add to _variables.scss if you prefer)
+
+// For multiple consecutive underscores merged into one fixed-length underline
+.merged-underline {
+  display: inline-block; // Allows setting width and respects text flow
+  width: $merged-underline-length;
+  border-bottom: 1px solid $color-border; // Or your preferred underline style
+  vertical-align: bottom; // Aligns the underline nicely with text
+  margin: 0 0.2em; // Some spacing around it
+  // If you want it to be exactly on the baseline, you might need to adjust padding/height
+  // For example:
+  // height: 1px; // Make it very thin
+  // padding-bottom: 0.2em; // Push content above it down slightly
+  // box-sizing: border-box;
+}
+
+// For a fixed-length underline with a ★ on it
+.starred-underline {
+  display: inline-block;
+  position: relative; // Crucial for positioning the star
+  width: $merged-underline-star-length;
+  border-bottom: 1px solid $color-border;
+  vertical-align: bottom;
+  margin: 0 0.2em;
+  text-align: center;
+  content: ""; // Ensures it behaves like an inline element
+  // height: 1em; // Ensure it has some height for the star to sit visually within
+  // padding-bottom: 0.2em; // Similar to above for alignment
+
+  .star-glyph {
+    position: absolute;
+    bottom: -0.1em; // Adjust to sit nicely on/slightly above the line
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: $star-glyph-font-size;
+    font-weight: bold; // Stars are often bold
+    color: $star-glyph-color;
+    line-height: 1; // Prevent star from affecting line height too much
+    // You might need to adjust 'bottom' and 'font-size' based on your base font
+  }
+}

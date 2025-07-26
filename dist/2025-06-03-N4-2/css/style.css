@@ -1,0 +1,375 @@
+body {
+  font-family: "MS Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  line-height: 1.6;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 10pt;
+}
+
+h1,
+h2,
+h3,
+p,
+div,
+span,
+li,
+td,
+th,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  orphans: 3;
+  widows: 3;
+}
+
+.underline {
+  border-bottom: 1.5px solid #000;
+  padding-bottom: 1px;
+  text-decoration: none;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+  position: relative;
+}
+
+.page-content-wrapper {
+  flex-grow: 1;
+}
+
+.page-footer-container {
+  width: 100%;
+  text-align: center;
+  padding: 0.5em 0;
+  margin-top: auto;
+  font-size: 9pt;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
+.page-section-header {
+  font-size: 11pt;
+  text-align: right;
+  margin-bottom: 1.5em;
+  font-weight: normal;
+}
+
+.page-number {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9pt;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  z-index: 10;
+}
+
+.problem-block {
+  margin-bottom: 2em;
+}
+.problem-block .problem-block-title {
+  font-size: 12pt;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.2em;
+}
+.problem-block .problem-block-instruction {
+  font-size: 10pt;
+  margin-bottom: 1.5em;
+  line-height: 1.5;
+}
+
+.question-item {
+  margin-bottom: 1.2em;
+  display: flex;
+  align-items: flex-start;
+  page-break-inside: avoid;
+}
+.question-item .question-number-box {
+  display: inline-block;
+  border: 1px solid #000;
+  margin-right: 0.8em;
+  margin-top: 0.1em;
+  line-height: 1.2;
+  min-width: 1.7em;
+  text-align: center;
+  font-size: 10pt;
+}
+.question-item .question-content {
+  flex-grow: 1;
+}
+.question-item .question-content .question-text {
+  display: block;
+  margin-bottom: 0.5em;
+  line-height: 1.7;
+}
+.question-item .question-content .question-text .underline {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-bottom: none;
+}
+.question-item .question-content .question-text .blank {
+  display: inline-block;
+  width: 3em;
+  border-bottom: 1px solid #000;
+  margin: 0 0.2em;
+  text-align: center;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-left: 2.7em;
+}
+.options-container .option-item {
+  display: flex;
+  align-items: baseline;
+  margin-right: 2em;
+  margin-bottom: 0.3em;
+  min-width: 6em;
+}
+.options-container .option-item .option-number {
+  margin-right: 0.5em;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+.options-container .option-item .option-text {
+  line-height: 1.6;
+}
+
+.star-problem-instruction {
+  font-size: 10pt;
+  margin-bottom: 0.5em;
+}
+
+.star-example-box {
+  border: 1px solid #ccc;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+  font-size: 9pt;
+}
+.star-example-box .star-example-sentence {
+  margin-bottom: 0.5em;
+  line-height: 1.8;
+}
+.star-example-box .star-example-options {
+  display: flex;
+  justify-content: space-around;
+}
+
+.star-problem-sentence-container {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+  line-height: 1.8;
+}
+.star-problem-sentence-container .star-placeholder {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.star-problem-sentence-container .blank-line {
+  display: inline-block;
+  width: 6em;
+  border-bottom: 1px solid #ccc;
+  margin: 0 0.2em;
+  vertical-align: bottom;
+}
+
+.star-problem-options-container {
+  margin-left: 1.5em;
+}
+
+.reading-passage-container {
+  margin-bottom: 1.5em;
+  border: 1px solid #ccc;
+  padding: 1em;
+  background-color: #fdfdfd;
+  line-height: 1.7;
+}
+.reading-passage-container .passage-title {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+.reading-passage-container p {
+  margin-bottom: 0.8em;
+  text-align: justify;
+  text-indent: 2em;
+}
+.reading-passage-container p:last-child {
+  margin-bottom: 0;
+}
+.reading-passage-container .passage-note {
+  text-indent: 0;
+  font-size: 9pt;
+  margin-top: 0.5em;
+  margin-left: 1em;
+  color: #333;
+}
+.reading-passage-container .fill-blank-marker {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  font-weight: bold;
+}
+
+.passage-fill-options .options-container {
+  margin-left: 0;
+}
+
+.data-table-container {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+.data-table-container .data-table-main-caption {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.data-table-section {
+  margin-bottom: 1.5em;
+}
+.data-table-section .data-table-section-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+.data-table-section .data-table-section-description {
+  font-size: 0.95em;
+  margin-bottom: 0.8em;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+.data-table-section .inner-table {
+  margin-top: 0.5em;
+  margin-bottom: 0.8em;
+}
+.data-table-section .data-table-section-footer-notes {
+  margin-top: 0.5em;
+  font-size: 8.5pt;
+}
+.data-table-section .data-table-section-footer-notes .table-note {
+  margin-bottom: 0.3em;
+}
+
+.data-table-section-divider {
+  border: none;
+  border-top: 1px dashed #ccc;
+  margin: 1.5em 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+.data-table th,
+.data-table td {
+  border: 1px solid #000;
+  padding: 0.4em 0.6em;
+  text-align: left;
+  vertical-align: top;
+}
+.data-table th {
+  background-color: #e0e0e0;
+  font-weight: bold;
+  text-align: center;
+}
+.data-table td.center-align {
+  text-align: center;
+}
+.data-table td.right-align {
+  text-align: right;
+}
+
+.table-note {
+  font-size: 8.5pt;
+  margin-top: 0.2em;
+}
+
+.merged-underline {
+  display: inline-block;
+  width: 6em;
+  border-bottom: 1px solid #000;
+  vertical-align: bottom;
+  margin: 0 0.2em;
+}
+
+.starred-underline {
+  display: inline-block;
+  position: relative;
+  width: 6em;
+  border-bottom: 1px solid #000;
+  vertical-align: bottom;
+  margin: 0 0.2em;
+  text-align: center;
+  content: "";
+}
+.starred-underline .star-glyph {
+  position: absolute;
+  bottom: -0.1em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #000;
+  line-height: 1;
+}
+
+@media print {
+  body {
+    font-size: 10pt !important;
+    color: #000 !important;
+    background-color: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  body > .page-container:last-child {
+    page-break-after: auto;
+  }
+  .question-item {
+    page-break-inside: avoid;
+  }
+  body > .page-container:last-child {
+    page-break-after: auto;
+  }
+}
+@page {
+  size: A4;
+  margin: 2cm 1.5cm 1.5cm 2cm;
+  @bottom-center {
+    content: counter(page);
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    font-size: 9pt;
+    vertical-align: top;
+    padding-top: 0.5cm;
+  }
+  @top-right {
+    font-family: "MS Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 11pt;
+    vertical-align: bottom;
+    padding-bottom: 0.5cm;
+  }
+}
+.problem-block-title,
+.question-item,
+.reading-passage-container {
+  break-inside: avoid;
+}
+
+.new-major-section-start-element {
+  break-before: page;
+}

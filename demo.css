@@ -1,0 +1,343 @@
+/* The very first demo version of this project */
+@charset "UTF--8";
+
+/* --- Basic Page Setup for Print --- */
+@page {
+  size: A4;
+  margin: 2cm 1.5cm 1.5cm 2cm;
+  /* Approximate margins: Top, Right, Bottom, Left */
+}
+
+body {
+  font-family: "MS Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  /* Common Japanese serif fonts */
+  line-height: 1.6;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 10pt;
+  /* Base font size, adjust as needed */
+}
+
+/* --- General Text Elements --- */
+h1,
+h2,
+h3,
+p,
+div,
+span,
+li,
+td,
+th {
+  margin: 0;
+  padding: 0;
+  orphans: 3;
+  /* Minimum lines at bottom of page */
+  widows: 3;
+  /* Minimum lines at top of page */
+}
+
+/* --- Page Header (e.g., "言語知識(文字・語彙・文法)読解") --- */
+.page-section-header {
+  font-size: 11pt;
+  text-align: right;
+  margin-bottom: 1.5em;
+  font-weight: normal;
+}
+
+/* --- Problem Section Titles (e.g., "問題 1") --- */
+.problem-block-title {
+  font-size: 12pt;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  /* border-bottom: 1px solid #ccc; */
+  /* Optional separator */
+  padding-bottom: 0.2em;
+}
+
+/* --- Instructions within a Problem Block --- */
+.problem-block-instruction {
+  font-size: 10pt;
+  margin-bottom: 1.5em;
+  line-height: 1.5;
+}
+
+.problem-block-instruction .underline {
+  border-bottom: 1.5px solid black;
+  /* More distinct underline */
+  padding-bottom: 1px;
+}
+
+
+/* --- Individual Question Item --- */
+.question-item {
+  margin-bottom: 1.2em;
+  /* Space between questions */
+  display: flex;
+  /* For aligning question number and text */
+  align-items: flex-start;
+  /* Align items to the top */
+  page-break-inside: avoid;
+  /* Try to keep question and its options together */
+}
+
+.question-number-box {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 0.1em 0.4em;
+  margin-right: 0.8em;
+  line-height: 1.2;
+  /* Adjust for box height */
+  min-width: 1.5em;
+  /* Ensure some width */
+  text-align: center;
+  font-size: 10pt;
+}
+
+.question-content {
+  flex-grow: 1;
+  /* Allow content to take remaining space */
+}
+
+.question-text {
+  display: block;
+  /* Ensure it takes full width available in its container */
+  margin-bottom: 0.5em;
+  /* Space between question text and options */
+  line-height: 1.7;
+}
+
+.question-text .underline {
+  /* For underlined words within question text */
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  /* Adjust offset as needed */
+}
+
+
+/* --- Options Container --- */
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* Allow options to wrap if they don't fit */
+  justify-content: flex-start;
+  /* Align options from the left */
+  margin-left: 2.7em;
+  /* Indent options to align with question text, adjust if question-number-box width changes */
+}
+
+.option-item {
+  display: flex;
+  /* Align option number and text */
+  align-items: baseline;
+  /* Align baseline of number and text */
+  margin-right: 2em;
+  /* Space between options */
+  margin-bottom: 0.3em;
+  /* If options wrap */
+  min-width: 6em;
+  /* Give some minimum width to options, adjust as needed */
+}
+
+.option-number {
+  margin-right: 0.5em;
+  font-family: sans-serif;
+  /* Often numbers are sans-serif */
+}
+
+.option-text {
+  line-height: 1.6;
+}
+
+
+/* --- Page Numbering --- */
+.page-number {
+  position: fixed;
+  bottom: 0.8cm;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9pt;
+  font-family: sans-serif;
+}
+
+/* --- Specific Question Types --- */
+
+/* For "Problem 3" style (blank filling) */
+.context-question .question-text .blank {
+  display: inline-block;
+  width: 3em;
+  /* Adjust width of blank */
+  border-bottom: 1px solid black;
+  margin: 0 0.2em;
+  text-align: center;
+  /* For parentheses */
+  font-family: sans-serif;
+  /* Parentheses often look better in sans-serif */
+}
+
+/* For "Problem 6" star-marked questions (組合わせ問題) */
+.star-problem-instruction {
+  font-size: 10pt;
+  margin-bottom: 0.5em;
+}
+
+.star-problem-sentence-container {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+  /* Indent the sentence */
+  line-height: 1.8;
+}
+
+.star-problem-sentence-container .blank-line {
+  display: inline-block;
+  width: 6em;
+  /* Adjust width of the blank line */
+  border-bottom: 1px solid #555;
+  margin: 0 0.2em;
+  position: relative;
+  /* For placing the star */
+}
+
+.star-problem-sentence-container .star-placeholder {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.star-problem-options-container {
+  /* Specific styling if different from regular options */
+  margin-left: 1.5em;
+  /* Indent options for star problems */
+}
+
+/* Example usage for star problem layout example */
+.star-example-box {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+  font-size: 9pt;
+}
+
+.star-example-box .star-example-sentence {
+  margin-bottom: 0.5em;
+}
+
+.star-example-box .star-example-options {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+/* Reading Comprehension Passages */
+.reading-passage-container {
+  margin-bottom: 1.5em;
+  border: 1px solid #ccc;
+  /* Optional border around passage */
+  padding: 1em;
+  background-color: #fdfdfd;
+  /* Slightly off-white */
+  line-height: 1.7;
+}
+
+.reading-passage-container p {
+  margin-bottom: 0.8em;
+  text-align: justify;
+  text-indent: 2em;
+  /* First line indent for paragraphs */
+}
+
+.reading-passage-container p:last-child {
+  margin-bottom: 0;
+}
+
+.reading-passage-container .passage-note {
+  /* For (注) definitions */
+  text-indent: 0;
+  font-size: 9pt;
+  margin-top: 0.5em;
+  margin-left: 1em;
+  /* Indent notes slightly */
+  color: #333;
+}
+
+.reading-passage-container .fill-blank-marker {
+  /* For ( 48 ) style markers */
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+/* Problem 9 - Passage with fill-in-the-blanks and choices for those blanks */
+.passage-fill-options .options-container {
+  margin-left: 0;
+  /* No extra indent for these options */
+}
+
+
+/* For tables like in Problem 14 (Tennis School) */
+.data-table-container {
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+  border: 1px solid black;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid black;
+  padding: 0.4em 0.6em;
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table th {
+  background-color: #e0e0e0;
+  /* Gray background for headers */
+  font-weight: bold;
+  text-align: center;
+}
+
+.data-table td.center-align {
+  text-align: center;
+}
+
+.data-table td.right-align {
+  text-align: right;
+}
+
+.table-note {
+  font-size: 8.5pt;
+  margin-top: 0.5em;
+}
+
+
+/* --- Utility Classes --- */
+.bold {
+  font-weight: bold;
+}
+
+/* --- Print Specific Adjustments --- */
+@media print {
+  body {
+    font-size: 10pt;
+    /* Ensure consistent font size for printing */
+    color: #000 !important;
+    /* Force black text */
+    background-color: #fff !important;
+    /* Force white background */
+  }
+
+  /* Hide elements not meant for printing (if any were added for web view) */
+  .no-print {
+    display: none !important;
+  }
+}
